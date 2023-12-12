@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/tou"></ImageView>
+
+    <RelativeLayout
+        android:background="@color/colorPrimary"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+        <TextView
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:id="@+id/tv_text"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        </TextView>
+        <TextView
+            android:textSize="18sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/tv_reference"
+            android:textColor="#FFFFFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        </TextView>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_generate"
+        android:layout_width="131dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:background="#202020"
+        android:text="Generate"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"></Button>
+
+    <Button
+        android:id="@+id/bt_select"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#202020"
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:text="Version Selector"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"></Button>
+</LinearLayout>
