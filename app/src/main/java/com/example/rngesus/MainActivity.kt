@@ -1,29 +1,45 @@
 package com.example.rngesus
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+import com.google.firebase.auth.FirebaseAuth
+
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var auth: FirebaseAuth
+
     private lateinit var tv_reference: TextView
     private lateinit var tv_text: TextView
     private lateinit var bt_generate: Button
     private lateinit var bt_select: Button
     private val url = "https://bible-api.com/?random=verse&translation="
+    private val url2 = "https://bible-api.com/"
+    private val manualInVersion = "?translation=kjv"
     private var version = "King James Version"
     private var version_id = "kjv"
     private var apiResponseData: String? = ""
+    private lateinit var editText: EditText
+    private var enteredText = ""
+
 
     val versionID = mutableMapOf ("Cherokee New Testament" to "cherokee",
         "Bible in Basic English" to "bbe",
@@ -46,12 +62,44 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         bt_select.setOnClickListener(this)
         bt_generate.setOnClickListener(this)
         bt_select.text = version
+        editText = findViewById<EditText>(R.id.editText)
+
     }
 
+    private fun isBibleVerseFormat(input: String): Boolean {
+        val bibleVersePattern = "^[A-Za-z]+\\s\\d+:\\d+$"
+        val pattern: Pattern = Pattern.compile(bibleVersePattern)
+        val matcher: Matcher = pattern.matcher(input)
+        val bibleVersePattern2 = "^[A-Za-z]+\\d+:\\d+$"
+        val pattern2: Pattern = Pattern.compile(bibleVersePattern2)
+        val matcher2: Matcher = pattern2.matcher(input)
+        val bibleVersePattern3 = "^[A-Za-z]+\\d+$"
+        val pattern3: Pattern = Pattern.compile(bibleVersePattern3)
+        val matcher3: Matcher = pattern3.matcher(input)
+        var res = false
+        if (matcher.matches() || matcher2.matches() || matcher3.matches()) {
+            res = true
+        }
+        return res
+    }
     override fun onClick(view: View) {
         version_id = versionID[version]!!
+
         when (view.id) {
-            R.id.bt_generate -> getData(url + version_id)
+            R.id.bt_generate -> {
+                enteredText = editText.text.toString()
+                enteredText = enteredText.replace("\\s", "")
+                if (enteredText.isNotEmpty()) {
+                    if (isBibleVerseFormat(enteredText)) {
+                        getData(url2 + enteredText + manualInVersion)
+                    }
+                    else {
+                        Toast.makeText(this@MainActivity, "Incorrect format entered, please enter in the format of John 1:14", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    getData(url + version_id)
+                }
+            }
             R.id.bt_select -> {
                 val popupMenu = PopupMenu(this@MainActivity, bt_select)
                 popupMenu.menuInflater.inflate(R.menu.menu, popupMenu.menu)
@@ -64,7 +112,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 popupMenu.show()
             }
-        }
+            }
+
+
     }
 
     private fun getData(str: String?) {
@@ -102,5 +152,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }.start()
+    }
+    fun signOut(view: View) {
+        auth = FirebaseAuth.getInstance()
+        auth.signOut()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
