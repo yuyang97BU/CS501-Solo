@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         bt_generate.setOnClickListener(this)
         bt_select.text = version
         editText = findViewById<EditText>(R.id.editText)
-
     }
     // basic format checking for the manual input
     private fun isBibleVerseFormat(input: String): Boolean {
@@ -110,9 +109,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 popupMenu.show()
             }
-            }
-
-
+        }
     }
 
     private fun getData(str: String?) {
@@ -143,7 +140,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         .show()
                     return@runOnUiThread
                 }
-                 // manually requsted verse doesn't exist
+                 // manually requested verse doesn't exist
                  else if (!apiResponseData!!.contains("error")){
                     Toast.makeText(this@MainActivity, R.string.verse_not_exit, Toast.LENGTH_SHORT)
                         .show()

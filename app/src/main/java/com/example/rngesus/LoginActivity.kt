@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
 // put the login here because professor asked me to specifically during presentation
-
+// reference: https://github.com/emineinan/FirebaseAuthKotlin/tree/acb917b0ff937ea9f6a76a6eb60bc2f88caf746f/app/src/main/java/com/example/firebaseauthapp
 class LoginActivity : AppCompatActivity() {
     private lateinit var  auth: FirebaseAuth
     private lateinit var editTextEmailAddress: EditText
@@ -21,6 +21,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         title="Login"
         auth= FirebaseAuth.getInstance()
+        // if the user did not sign out then do not display the login page
+        // https://stackoverflow.com/questions/47285784/firebase-android-auto-login
+        if (auth.currentUser != null) {
+            val intent= Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
     }
     //login function
     fun login(view: View){
@@ -30,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
         val password=editTextPassword.text.toString()
         auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->
             if(task.isSuccessful){
-
                 val user = auth.currentUser
                 // check for email verification
                 // still letting them in for now because this app really shouldn't need login

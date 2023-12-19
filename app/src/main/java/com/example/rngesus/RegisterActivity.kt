@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 // put the registration here because professor asked me to specifically during presentation
+// reference: https://github.com/emineinan/FirebaseAuthKotlin/tree/acb917b0ff937ea9f6a76a6eb60bc2f88caf746f/app/src/main/java/com/example/firebaseauthapp
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var  auth: FirebaseAuth
@@ -18,7 +19,6 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         title="Register"
-
         auth= FirebaseAuth.getInstance()
     }
     // register function
