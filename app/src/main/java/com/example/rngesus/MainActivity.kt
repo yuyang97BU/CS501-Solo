@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     return@runOnUiThread
                 }
                  // manually requested verse doesn't exist
-                 else if (!apiResponseData!!.contains("error")){
+                 else if (apiResponseData!!.contains("error")){
                     Toast.makeText(this@MainActivity, R.string.verse_not_exit, Toast.LENGTH_SHORT)
                         .show()
                     return@runOnUiThread
