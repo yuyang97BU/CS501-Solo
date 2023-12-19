@@ -31,7 +31,7 @@
     <string name="jo_o_ferreira_de_almeida">João Ferreira de Almeida</string>
     <string name="protestant_romanian_corrected_cornilescu_version">Protestant Romanian Corrected</string>
     <string name="connection_fail">Connection Failed</string>
-    <string name="verse_not_exit">The requested verse does not exist</string>
+    <string name="verse_not_exit">The requested verse does not exist OR the server is down</string>
     <string name="email_not_verified">Please verify your email address (still letting you in)</string>
 
 </resources>
