@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+// put the registration here because professor asked me to specifically during presentation
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var  auth: FirebaseAuth
@@ -20,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
 
         auth= FirebaseAuth.getInstance()
     }
-
+    // register function
     fun register(view: View){
         editTextEmailAddress = findViewById<EditText>(R.id.editTextEmailAddress)
         editTextPassword = findViewById<EditText>(R.id.editTextPassword)
@@ -29,7 +30,9 @@ class RegisterActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
             if(task.isSuccessful){
-                val intent= Intent(this,MainActivity::class.java)
+                val user = auth.currentUser
+                user?.sendEmailVerification() // send verification email
+                val intent= Intent(this,LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -37,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(applicationContext,exception.localizedMessage,Toast.LENGTH_LONG).show()
         }
     }
-
+    // going to the login page by clicking on text
     fun goToLogin(view: View){
         val intent= Intent(this,LoginActivity::class.java)
         startActivity(intent)

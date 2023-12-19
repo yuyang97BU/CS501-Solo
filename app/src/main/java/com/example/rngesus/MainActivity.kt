@@ -26,31 +26,30 @@ import com.google.firebase.auth.FirebaseAuth
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var auth: FirebaseAuth
-
     private lateinit var tv_reference: TextView
     private lateinit var tv_text: TextView
     private lateinit var bt_generate: Button
     private lateinit var bt_select: Button
-    private val url = "https://bible-api.com/?random=verse&translation="
-    private val url2 = "https://bible-api.com/"
+    private val url = "https://bible-api.com/?random=verse&translation=" //API link for the random verse
+    private val url2 = "https://bible-api.com/" //API link for searching for a specific verse
     private val manualInVersion = "?translation=kjv"
     private var version = "King James Version"
-    private var version_id = "kjv"
+    private var version_id = "kjv" //For choosing which version with the menu selector
     private var apiResponseData: String? = ""
     private lateinit var editText: EditText
     private var enteredText = ""
 
-
-    val versionID = mutableMapOf ("Cherokee New Testament" to "cherokee",
+    //mapping the menu string with version ID for API
+    private val versionMap = mutableMapOf ("Cherokee New Testament" to "cherokee",
         "Bible in Basic English" to "bbe",
         "King James Version" to "kjv",
         "World English Bible" to "web",
-        "Open EnglishBible,Commonwealth Edition" to "oeb-cw",
+        "Open EnglishBible,Commonwealth Ed." to "oeb-cw",
         "World English Bible,British Edition" to "webbe",
         "Open English Bible,US Edition" to "oeb-us",
         "Clementine Latin Vulgate" to "clementine",
         "João Ferreira de Almeida" to "almeida",
-        "Protestant Romanian Corrected Cornilescu Version" to "rccv")
+        "Protestant Romanian Corrected" to "rccv")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         editText = findViewById<EditText>(R.id.editText)
 
     }
-
+    // basic format checking for the manual input
     private fun isBibleVerseFormat(input: String): Boolean {
         val bibleVersePattern = "^[A-Za-z]+\\s\\d+:\\d+$"
         val pattern: Pattern = Pattern.compile(bibleVersePattern)
@@ -76,19 +75,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val bibleVersePattern3 = "^[A-Za-z]+\\d+$"
         val pattern3: Pattern = Pattern.compile(bibleVersePattern3)
         val matcher3: Matcher = pattern3.matcher(input)
-        var res = false
-        if (matcher.matches() || matcher2.matches() || matcher3.matches()) {
-            res = true
-        }
-        return res
+        return (matcher.matches() || matcher2.matches() || matcher3.matches())
     }
-    override fun onClick(view: View) {
-        version_id = versionID[version]!!
 
+    override fun onClick(view: View) {
+        version_id = versionMap[version]!! // getting the version ID
         when (view.id) {
+            // request a verse on click
             R.id.bt_generate -> {
                 enteredText = editText.text.toString()
                 enteredText = enteredText.replace("\\s", "")
+                // if there's input in the input text box then we switch to requesting that verse
                 if (enteredText.isNotEmpty()) {
                     if (isBibleVerseFormat(enteredText)) {
                         getData(url2 + enteredText + manualInVersion)
@@ -100,12 +97,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     getData(url + version_id)
                 }
             }
+            // change the version via menu selection
             R.id.bt_select -> {
                 val popupMenu = PopupMenu(this@MainActivity, bt_select)
                 popupMenu.menuInflater.inflate(R.menu.menu, popupMenu.menu)
                 popupMenu.setOnMenuItemClickListener { item: MenuItem ->
                     version = item.toString().trim { it <= ' ' }
-                    version_id = versionID[version]!!
+                    version_id = versionMap[version]!!
                     bt_select.text = version
                     getData(url + version_id)
                     true
@@ -118,6 +116,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun getData(str: String?) {
+        // run the API request with threads
         Thread {
             try {
                 val url = URL(str)
@@ -125,6 +124,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 connection.requestMethod = "GET"
                 connection.connectTimeout = 3000
                 connection.readTimeout = 3000
+
                 val reader = BufferedReader(InputStreamReader(connection.inputStream))
                 var line: String?
                 val responseData = StringBuilder()
@@ -137,22 +137,32 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 e.printStackTrace()
             }
             runOnUiThread {
-                if (apiResponseData == null || !apiResponseData!!.contains("reference")) {
-                    Toast.makeText(this@MainActivity, "Connection Failed", Toast.LENGTH_SHORT)
+                // failed to get a response
+                if (apiResponseData == null) {
+                    Toast.makeText(this@MainActivity, R.string.connection_fail, Toast.LENGTH_SHORT)
                         .show()
                     return@runOnUiThread
                 }
-                val gson = Gson()
-                val newsBean = gson.fromJson(apiResponseData, NewsBean::class.java)
-                if (newsBean.reference != null && newsBean.reference != "") {
-                    tv_reference.text = newsBean.reference
+                 // manually requsted verse doesn't exist
+                 else if (!apiResponseData!!.contains("error")){
+                    Toast.makeText(this@MainActivity, R.string.verse_not_exit, Toast.LENGTH_SHORT)
+                        .show()
+                    return@runOnUiThread
                 }
-                if (newsBean.verses?.get(0)?.text != null && newsBean.verses?.get(0)?.text != "") {
-                    tv_text.text = newsBean.verses!![0].text!!.replace("\n", "")
+                // using Gson to parse the JSON response
+                val gson = Gson()
+                val gsonRes = gson.fromJson(apiResponseData, VersesJSON::class.java)
+                if (gsonRes.reference != null && gsonRes.reference != "") {
+                    tv_reference.text = gsonRes.reference
+                }
+                // remove the random new line symbol that sometimes exist
+                if (gsonRes.verses?.get(0)?.text != null && gsonRes.verses?.get(0)?.text != "") {
+                    tv_text.text = gsonRes.verses!![0].text!!.replace("\n", "")
                 }
             }
         }.start()
     }
+    // the sign out button for signing out
     fun signOut(view: View) {
         auth = FirebaseAuth.getInstance()
         auth.signOut()

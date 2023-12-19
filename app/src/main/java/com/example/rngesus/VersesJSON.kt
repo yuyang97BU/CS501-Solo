@@ -1,6 +1,6 @@
 package com.example.rngesus
-
-class NewsBean {
+//class to store the parsed JSON response
+class VersesJSON {
     /**
      * reference : Acts 21:32
      * verses : [{"book_id":"ACT","book_name":"Acts","chapter":21,"verse":32,"text":"Who immediately took soldiers and centurions, and ran down unto them: and when they saw the chief captain and the soldiers, they left beating of Paul.\n"}]

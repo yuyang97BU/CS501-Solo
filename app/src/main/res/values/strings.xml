@@ -9,4 +9,30 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="enter_a_verse">Enter a verse in the format of John 1:1</string>
+    <string name="generate">Generate</string>
+    <string name="version_selector">Version Selector</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="register_button">REGISTER</string>
+    <string name="do_you_have_an_account">Do you have an account?</string>
+    <string name="login_click">Login</string>
+    <string name="cherokee_new_testament">Cherokee New Testament</string>
+    <string name="bible_in_basic_english">Bible in Basic English</string>
+    <string name="king_james_version">King James Version</string>
+    <string name="world_english_bible">World English Bible</string>
+    <string name="open_englishbible_commonwealth_edition">Open EnglishBible,Commonwealth Ed.</string>
+    <string name="world_english_bible_british_edition">World English Bible,British Edition</string>
+    <string name="open_english_bible_us_edition">Open English Bible,US Edition</string>
+    <string name="clementine_latin_vulgate">Clementine Latin Vulgate</string>
+    <string name="jo_o_ferreira_de_almeida">João Ferreira de Almeida</string>
+    <string name="protestant_romanian_corrected_cornilescu_version">Protestant Romanian Corrected</string>
+    <string name="connection_fail">Connection Failed</string>
+    <string name="verse_not_exit">The requested verse does not exist</string>
+    <string name="email_not_verified">Please verify your email address (still letting you in)</string>
+
 </resources>

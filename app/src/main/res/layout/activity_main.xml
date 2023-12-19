@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@color/menuBackgroundColor"
     tools:context=".MainActivity">
 
     <ImageView
@@ -15,7 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:scaleType="fitXY"
-        android:src="@drawable/tou"></ImageView>
+        android:src="@drawable/tou" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -28,36 +28,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"></TextView>
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_reference"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"></TextView>
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="41dp"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:gravity="center"
-        android:hint="Enter a verse in the format of John 1:1" />
+        android:hint="@string/enter_a_verse" />
 
     <Button
         android:id="@+id/bt_generate"
         android:layout_width="151dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
-        android:background="#202020"
-        android:text="Generate"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/generate"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"></Button>
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/bt_select"
@@ -65,11 +65,11 @@
         android:layout_height="69dp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:background="#202020"
+        android:background="@color/colorPrimaryDark"
         android:padding="8dp"
-        android:text="Version Selector"
+        android:text="@string/version_selector"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"></Button>
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/sign_out"
@@ -77,10 +77,10 @@
         android:layout_height="51dp"
         android:layout_marginTop="8dp"
         android:layout_gravity="center"
-        android:background="#202020"
+        android:background="@color/colorPrimaryDark"
         android:onClick="signOut"
-        android:text="Sign Out"
+        android:text="@string/sign_out"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"></Button>
+        android:textColor="@color/white" />
 
 </LinearLayout>

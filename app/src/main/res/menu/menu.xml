@@ -2,32 +2,32 @@
 
     <item
         android:id="@+id/menu1"
-        android:title="Cherokee New Testament" />
+        android:title="@string/cherokee_new_testament" />
     <item
         android:id="@+id/menu2"
-        android:title="Bible in Basic English" />
+        android:title="@string/bible_in_basic_english" />
     <item
         android:id="@+id/menu3"
-        android:title="King James Version" />
+        android:title="@string/king_james_version" />
     <item
         android:id="@+id/menu4"
-        android:title="World English Bible" />
+        android:title="@string/world_english_bible" />
     <item
         android:id="@+id/menu5"
-        android:title="Open EnglishBible,Commonwealth Edition" />
+        android:title="@string/open_englishbible_commonwealth_edition" />
     <item
         android:id="@+id/menu6"
-        android:title="World English Bible,British Edition" />
+        android:title="@string/world_english_bible_british_edition" />
     <item
         android:id="@+id/menu7"
-        android:title="Open English Bible,US Edition" />
+        android:title="@string/open_english_bible_us_edition" />
     <item
         android:id="@+id/menu8"
-        android:title="Clementine Latin Vulgate" />
+        android:title="@string/clementine_latin_vulgate" />
     <item
         android:id="@+id/menu9"
-        android:title="João Ferreira de Almeida" />
+        android:title="@string/jo_o_ferreira_de_almeida" />
     <item
         android:id="@+id/menu10"
-        android:title="Protestant Romanian Corrected Cornilescu Version" />
+        android:title="@string/protestant_romanian_corrected_cornilescu_version" />
 </menu>

@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="textColor">#FFFFFF</color>
     <color name="menuBackgroundColor">#000000</color>
+    <color name="loginBackgroundColor">#444444</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF9B21</color>
