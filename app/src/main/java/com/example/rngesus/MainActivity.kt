@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         getData(url2 + enteredText + manualInVersion)
                     }
                     else {
-                        Toast.makeText(this@MainActivity, "Incorrect format entered, please enter in the format of John 1:14", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, R.string.incorrect_format, Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     getData(url + version_id)

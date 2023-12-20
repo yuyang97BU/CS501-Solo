@@ -33,5 +33,5 @@
     <string name="connection_fail">Connection Failed</string>
     <string name="verse_not_exit">The requested verse does not exist OR the server is down</string>
     <string name="email_not_verified">Please verify your email address (still letting you in)</string>
-
+    <string name="incorrect_format">Incorrect format entered, please enter in the format of John 1:14</string>
 </resources>
